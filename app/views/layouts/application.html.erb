@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <nav class="profile_logout_nav">
+      <ul>
+        <li><%= link_to 'Home', welcome_index_path %></li>
+        <% if session[:user_id] %>
+          <li><%= link_to 'My profile', user_url(session[:user_id]) %></li>
+          <li><%= button_to 'Logout', logout_path, method: :delete %></li>
+        <% else%>
+          <li><%= link_to 'Login', login_path %></li>
+          <li><%= link_to 'Sign in', user_new_path %></li>
+        <% end %>
+      </ul>
+    </nav>
     <%= yield %>
   </body>
 </html>
