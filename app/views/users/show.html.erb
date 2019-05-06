@@ -1,9 +1,12 @@
 <p id="notice"><%= notice %></p>
+<div class="user_profile">
+	<h1>My Profile</h1>
+	<p>
+	  <strong>Email:</strong>
+	  <%= @user.email %>
+	</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+	<%= link_to 'Edit', edit_user_path(@user) %> |
+	<%= link_to 'Back', users_path %>
+</div>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
