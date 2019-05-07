@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
-    if @user.id == session[:user_id]
+    if @user.is_current_user(session[:user_id])
       respond_to do |format|
         if @user.update(user_params)
           format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -53,6 +53,7 @@ class UsersController < ApplicationController
       end
     else
       puts "CANNOT UPDATE ANOTHER USER"
+      redirect_to welcome_index_url, notice: 'Cannot update another users data.'
     end
   end
 
@@ -78,7 +79,7 @@ class UsersController < ApplicationController
     end
 
     def check_if_current_user
-      unless @user.id == session[:user_id]
+      unless @user.is_current_user(session[:user_id])
         redirect_to welcome_index_url, notice: 'You cannot edit another users data.'
       end
     end
