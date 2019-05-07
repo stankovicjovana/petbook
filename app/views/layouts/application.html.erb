@@ -5,12 +5,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav class="profile_logout_nav">
+    <section>
+      <nav class="main_app_nav">
       <ul>
         <li><%= link_to 'Home', welcome_index_path %></li>
         <% if session[:user_id] %>
@@ -22,6 +28,8 @@
         <% end %>
       </ul>
     </nav>
+    </section>
+    
     <%= yield %>
   </body>
 </html>

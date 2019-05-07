@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+.main_app_nav ul {
+ 	list-style: none;
+}
+
+.main_app_nav ul li {
+	display: inline-block;
+	color: orange;
+	font-size: larger;
+}
+
+.welcome_page {
+	
+}
