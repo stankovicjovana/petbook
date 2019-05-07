@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
     <%= form.label :email %>
     <%= form.email_field :email %>
   </div>
@@ -27,6 +32,6 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Submit"%>
   </div>
 <% end %>
