@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:new, :create]
-  before_action :check_if_current_user, only: [:edit, :update]
+  before_action :check_if_current_user, only: [:edit, :update, :destroy]
   # GET /users
   # GET /users.json
   def index
@@ -60,10 +60,14 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+    if @user.is_current_user(session[:user_id])
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      puts "CANNOT DELETE ANOTHER USER"
     end
   end
 
