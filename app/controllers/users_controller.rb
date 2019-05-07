@@ -66,6 +66,7 @@ class UsersController < ApplicationController
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
         format.json { head :no_content }
       end
+      
     else
       puts "CANNOT DELETE ANOTHER USER"
     end
