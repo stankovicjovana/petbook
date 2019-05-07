@@ -3,12 +3,12 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
 
-  def is_current_user(session_id)
-  	if self.id == session_id
+  def is_current_user(session_user_id)
+  	if self.id == session_user_id
   		puts "****"
   		puts "CURRENT USER"
   		puts "****"
-  		
+
   		return true
   	else
   		puts "****"
