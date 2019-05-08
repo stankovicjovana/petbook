@@ -12,7 +12,7 @@
 
 <p>
   <strong>Type:</strong>
-  <%= @pet.type %>
+  <%= @pet.animal_type %>
 </p>
 
 <p>
@@ -21,8 +21,8 @@
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @pet.user %>
+  <strong>Owner:</strong>
+  <%= @pet.user.name %>
 </p>
 
 <%= link_to 'Edit', edit_pet_path(@pet) %> |

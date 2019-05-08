@@ -1,6 +1,6 @@
 class PetsController < ApplicationController
   before_action :set_pet, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_user, only: [:new, :show, :edit, :create, :update, :destroy]
   # GET /pets
   # GET /pets.json
   def index
@@ -25,7 +25,7 @@ class PetsController < ApplicationController
   # POST /pets.json
   def create
     @pet = Pet.new(pet_params)
-
+    @pet.user = @user
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
@@ -67,8 +67,11 @@ class PetsController < ApplicationController
       @pet = Pet.find(params[:id])
     end
 
+    def set_user
+      @user = User.find(session[:user_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :description, :type, :breed, :user_id)
+      params.require(:pet).permit(:name, :description, :animal_type, :breed, :user_id)
     end
 end
