@@ -20,4 +20,8 @@ class User < ApplicationRecord
   		return false
   	end
   end
+
+  def has_no_pets
+    pets.count < 1
+  end
 end
