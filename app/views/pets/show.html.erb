@@ -25,6 +25,12 @@
   <%= link_to @pet.user.name, @pet.user %>
 </p>
 
+<div class="pet_photos">
+  <% @pet.images.each do |image| %>
+    <%= image_tag(image) %>
+  <% end %>
+</div>
+
 <% if @pet.owned_by(@user) %>
   <%= link_to 'Edit', edit_pet_path(@pet) %> |
 <% end%>
