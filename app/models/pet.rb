@@ -4,4 +4,8 @@ class Pet < ApplicationRecord
   validates :description, presence: true
   validates :animal_type, presence: true
   validates :breed, presence: true
+
+  def owned_by(current_user) 
+  	return user.id == current_user.id
+  end
 end

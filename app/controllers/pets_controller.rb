@@ -1,6 +1,7 @@
 class PetsController < ApplicationController
   before_action :set_pet, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :show, :edit, :create, :update, :destroy]
+  before_action :check_if_owner, only: [:edit, :update, :destroy]
   # GET /pets
   # GET /pets.json
   def index
@@ -73,5 +74,11 @@ class PetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
       params.require(:pet).permit(:name, :description, :animal_type, :breed, :user_id)
+    end
+
+    def check_if_owner
+      unless @pet.owned_by(@user)
+        redirect_to @user, notice: 'You connot change other people pets data.'
+      end
     end
 end
