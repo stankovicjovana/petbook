@@ -62,11 +62,8 @@ class UsersController < ApplicationController
   def destroy
     if @user.is_current_user(session[:user_id])
       @user.destroy
-      respond_to do |format|
-        format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-      
+      session[:user_id] = nil
+      redirect_to welcome_index_url
     else
       puts "CANNOT DELETE ANOTHER USER"
     end
