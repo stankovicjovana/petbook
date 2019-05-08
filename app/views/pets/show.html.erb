@@ -26,8 +26,8 @@
 </p>
 
 <div class="pet_photos">
-  <% @pet.images.each do |image| %>
-    <%= image_tag(image) %>
+  <% (0...@pet.images.count).each do |image_index| %>
+    <%= image_tag(@pet.resize_images(image_index)) %>
   <% end %>
 </div>
 
