@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :pets, dependent: :destroy
   has_one_attached :profile_image
   has_secure_password
   validates :email, presence: true, uniqueness: true
@@ -18,5 +19,9 @@ class User < ApplicationRecord
 
   		return false
   	end
+  end
+
+  def has_no_pets
+    pets.count < 1
   end
 end
