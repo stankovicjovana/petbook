@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @pets = @user.pets
+    @current_user = User.find(session[:user_id])
   end
 
   # GET /users/new
