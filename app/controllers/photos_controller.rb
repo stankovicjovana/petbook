@@ -1,7 +1,9 @@
 class PhotosController < ApplicationController
+  include CurrentUser
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :set_pet, only: [:show, :new, :create, :edit, :update, :destroy]
-
+  before_action :set_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :check_if_owner, only: [:new, :create, :edit, :update, :destroy]
   # GET /photos
   # GET /photos.json
   def index
@@ -55,9 +57,10 @@ class PhotosController < ApplicationController
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
+    @photo.pet_image.purge
     @photo.destroy
     respond_to do |format|
-      format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
+      format.html { redirect_to @pet, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -71,6 +74,7 @@ class PhotosController < ApplicationController
     def set_pet
       @pet = Pet.find(session[:pet_id])
     end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:title, :description, :pet_image)
