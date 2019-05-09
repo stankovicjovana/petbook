@@ -60,7 +60,7 @@ class PhotosController < ApplicationController
     @photo.pet_image.purge
     @photo.destroy
     respond_to do |format|
-      format.html { redirect_to photos_url, notice: 'Photo was successfully destroyed.' }
+      format.html { redirect_to @pet, notice: 'Photo was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
