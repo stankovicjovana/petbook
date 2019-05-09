@@ -26,13 +26,33 @@
 </p>
 
 <div class="pet_photos">
-  <% (0...@pet.images.count).each do |image_index| %>
-    <%= image_tag(@pet.resize_images(image_index)) %>
+  <% (0...@pet.photos.count).each do |image_index| %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@pet.photos[image_index].pet_image) %> </td>
+        </tr>
+        <tr>
+          <td>Title: <%= @pet.photos[image_index].title %></td>  
+        </tr>
+        <tr>
+          <td>Description: <%= @pet.photos[image_index].description %></td> 
+        </tr>
+      </tbody>
+    </table>
+    
   <% end %>
 </div>
 
 <% if @pet.owned_by(@user) %>
   <%= link_to 'Edit', edit_pet_path(@pet) %> |
+  <%= link_to 'Add photo', new_photo_path %> |
 <% end%>
 
 <%= link_to 'Back', pets_path %>

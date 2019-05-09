@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
 
   def destroy
   	session[:user_id] = nil
+    session[:pet_id] = nil
   	redirect_to welcome_index_url, notice: "Logged out"
   end
 end
