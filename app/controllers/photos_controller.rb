@@ -1,5 +1,6 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_pet, only: [:show, :new, :create, :edit, :update, :destroy]
 
   # GET /photos
   # GET /photos.json
@@ -25,7 +26,7 @@ class PhotosController < ApplicationController
   # POST /photos.json
   def create
     @photo = Photo.new(photo_params)
-
+    @photo.pet = @pet
     respond_to do |format|
       if @photo.save
         format.html { redirect_to @photo, notice: 'Photo was successfully created.' }
@@ -67,8 +68,11 @@ class PhotosController < ApplicationController
       @photo = Photo.find(params[:id])
     end
 
+    def set_pet
+      @pet = Pet.find(session[:pet_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
-      params.require(:photo).permit(:title, :description)
+      params.require(:photo).permit(:title, :description, :pet)
     end
 end

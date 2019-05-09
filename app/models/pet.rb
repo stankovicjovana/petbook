@@ -1,11 +1,12 @@
 class Pet < ApplicationRecord
   belongs_to :user
   has_many :photos, dependent: :destroy
+  has_many_attached :images
+  
   validates :name, presence: true
   validates :description, presence: true
   validates :animal_type, presence: true
   validates :breed, presence: true
-  has_many_attached :images
   validate :image_type
 
   def owned_by(current_user) 
