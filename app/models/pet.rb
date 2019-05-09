@@ -12,9 +12,4 @@ class Pet < ApplicationRecord
   	return user.id == current_user.id
   end
 
-  def resize_images(image_index)
-  	return self.images[image_index].variant(resize: '200X200!').processed
-  end
-
-  
 end

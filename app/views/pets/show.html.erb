@@ -27,7 +27,26 @@
 
 <div class="pet_photos">
   <% (0...@pet.photos.count).each do |image_index| %>
-    <%= image_tag(@pet.photos[image_index].pet_image) %>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= image_tag(@pet.photos[image_index].pet_image) %> </td>
+        </tr>
+        <tr>
+          <td>Title: <%= @pet.photos[image_index].title %></td>  
+        </tr>
+        <tr>
+          <td>Description: <%= @pet.photos[image_index].description %></td> 
+        </tr>
+      </tbody>
+    </table>
+    
   <% end %>
 </div>
 

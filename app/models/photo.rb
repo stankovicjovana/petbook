@@ -8,6 +8,11 @@ class Photo < ApplicationRecord
 	validate :correct_image_type
 	validate :image_presence
 
+
+	def resize_image
+  		return pet_image.variant(resize: '200X200!').processed
+  	end
+
 	private 
 	  	def correct_image_type
 			if pet_image.attached? && !pet_image.content_type.in?(%('pet_image/jpeg pet_image/jpg pet_image/png'))
