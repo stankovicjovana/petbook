@@ -1,7 +1,8 @@
 class PhotosController < ApplicationController
   before_action :set_photo, only: [:show, :edit, :update, :destroy]
   before_action :set_pet, only: [:show, :new, :create, :edit, :update, :destroy]
-
+  before_action :set_user, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  #before_action :check_if_owner
   # GET /photos
   # GET /photos.json
   def index
@@ -72,8 +73,18 @@ class PhotosController < ApplicationController
     def set_pet
       @pet = Pet.find(session[:pet_id])
     end
+
+    def set_user
+      @user = User.find(session[:user_id])
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:title, :description, :pet_image)
+    end
+
+    def check_if_owner
+      unless @pet.owned_by(@user)
+        redirect_to @user, notice: 'You connot change other people pets data.'
+      end
     end
 end
