@@ -12,7 +12,6 @@ class PetsController < ApplicationController
   # GET /pets/1.json
   def show
     session[:pet_id] = @pet.id
-    @photos = @pet.photos
   end
 
   # GET /pets/new
