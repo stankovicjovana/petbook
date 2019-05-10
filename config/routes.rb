@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   resources :photos
   resources :pets
   get 'login' => 'sessions#new'

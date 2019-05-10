@@ -47,10 +47,30 @@
 		  <strong>Email:</strong>
 		  <%= @user.email %>
 		</p>
-		<%= link_to 'Add pet', new_pet_path %>
+		<%= link_to 'Add pet', new_pet_path %> |
 		<%= link_to 'Edit', edit_user_path(@user) %> |
 		<%= link_to 'Delete profile', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
 	<% end %>
 	<%= link_to 'Back', users_path %>
+	<div>
+		<strong><%= link_to	'Add new post', new_post_path %></strong>
+	</div>
+	
+
+	<% if @user.posts %>
+		<p> Posts </p>
+		<% @user.posts.each do |post| %>
+			<div>	
+				<strong><%= post.user.name %> :</strong>
+				<%= post.body %>
+				<div style="width:200px; height:auto">
+					<%= image_tag(post.users_photo, style:"width:100%") if post.users_photo.attached? %>
+				</div>
+				<%= link_to	'Edit post', edit_post_path(post) %> |
+				<%= link_to 'Delete post', post, method: :delete %>
+			</div>	
+		<% end %>
+	<% end %>
 </div>
+
 

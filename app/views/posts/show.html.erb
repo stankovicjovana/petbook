@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= @user.name %> posted:</strong>
+  <%= @post.body %>
+</p>
+
+<div style="width:200px; height:auto">
+	<%= image_tag(@post.users_photo, style:"width:100%") if @post.users_photo.attached? %>
+</div>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
