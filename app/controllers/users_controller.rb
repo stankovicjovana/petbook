@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include CurrentUser
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:new, :create]
   before_action :check_if_current_user, only: [:edit, :update, :destroy]
@@ -82,9 +83,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :profile_image)
     end
 
-    def check_if_current_user
-      unless @user.is_current_user(session[:user_id])
-        redirect_to welcome_index_url, notice: 'You cannot edit another users data.'
-      end
-    end
 end

@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   include CurrentUser
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :show, :edit, :create, :update, :destroy]
+  before_action :check_if_current_user, only: [:new, :edit, :create, :update, :destroy]
   # GET /posts
   # GET /posts.json
   def index

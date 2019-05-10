@@ -13,4 +13,10 @@ module CurrentUser
 	     	end
 	    end
 
+	    def check_if_current_user
+	      unless @user.is_current_user(session[:user_id])
+	        redirect_to welcome_index_url, notice: 'You cannot edit another users data.'
+	      end
+    	end
+
 end
