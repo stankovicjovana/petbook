@@ -3,10 +3,11 @@ class PetsController < ApplicationController
   before_action :set_pet, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:new, :show, :edit, :create, :update, :destroy]
   before_action :check_if_owner, only: [:edit, :update, :destroy]
+  before_action :set_all_pets, only: [:index, :new, :edit, :create, :update]
   # GET /pets
   # GET /pets.json
   def index
-    @pets = Pet.all
+    
   end
 
   # GET /pets/1
@@ -22,13 +23,13 @@ class PetsController < ApplicationController
 
   # GET /pets/1/edit
   def edit
-    @pets = Pet.all
+    
   end
 
   # POST /pets
   # POST /pets.json
   def create
-    @pets = Pet.all
+    
     @pet = Pet.new(pet_params)
     @pet.user = @user
     respond_to do |format|
@@ -78,5 +79,8 @@ class PetsController < ApplicationController
       params.require(:pet).permit(:name, :description, :animal_type, :breed, :user_id, :parent_id)
     end
 
+    def set_all_pets
+      @pets = Pet.all
+    end
 
 end
