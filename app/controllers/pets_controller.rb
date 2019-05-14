@@ -22,11 +22,13 @@ class PetsController < ApplicationController
 
   # GET /pets/1/edit
   def edit
+    @pets = Pet.all
   end
 
   # POST /pets
   # POST /pets.json
   def create
+    @pets = Pet.all
     @pet = Pet.new(pet_params)
     @pet.user = @user
     respond_to do |format|
@@ -73,7 +75,7 @@ class PetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pet_params
-      params.require(:pet).permit(:name, :description, :animal_type, :breed, :user_id)
+      params.require(:pet).permit(:name, :description, :animal_type, :breed, :user_id, :parent_id)
     end
 
 
