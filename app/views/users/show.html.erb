@@ -50,11 +50,12 @@
 		<%= link_to 'Add pet', new_pet_path %> |
 		<%= link_to 'Edit', edit_user_path(@user) %> |
 		<%= link_to 'Delete profile', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+		<div>
+			<strong><%= link_to	'Add new post', new_post_path %></strong>
+		</div>
 	<% end %>
 	<%= link_to 'Back', users_path %>
-	<div>
-		<strong><%= link_to	'Add new post', new_post_path %></strong>
-	</div>
+	
 	
 
 	<% if @user.posts %>

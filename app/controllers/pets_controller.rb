@@ -64,7 +64,7 @@ class PetsController < ApplicationController
     session[:pet_id] = nil
     @pet.destroy
     respond_to do |format|
-      format.html { redirect_to pets_url, notice: 'Pet was successfully destroyed.' }
+      format.html { redirect_to @user, notice: 'Pet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
