@@ -25,6 +25,13 @@
   <%= link_to @pet.user.name, @pet.user %>
 </p>
 
+<p>
+  <% if @pet.has_parent? %>
+    <strong>Parent: </strong>
+    <%= link_to @pet.parent.name, @pet.parent %>
+  <% end %>
+</p>
+
 <div class="pet_photos">
   <% @pet.photos.each do |photo| %>
     <table>
