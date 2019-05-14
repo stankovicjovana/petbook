@@ -1,6 +1,6 @@
 class Pet < ApplicationRecord
   belongs_to :user
-  belongs_to :parent, class_name: "Pet"  
+  belongs_to :parent, class_name: "Pet", optional: true
   has_many :children, class_name: "Pet", foreign_key: "parent_id"
   has_many :photos, dependent: :destroy
   
