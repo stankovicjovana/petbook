@@ -4,6 +4,7 @@ class PetsController < ApplicationController
   before_action :set_user, only: [:new, :show, :edit, :create, :update, :destroy]
   before_action :check_if_owner, only: [:edit, :update, :destroy]
   before_action :set_all_pets, only: [:index, :new, :edit, :create, :update]
+  after_action :check_animal_type, only: [:create, :update]
   # GET /pets
   # GET /pets.json
   def index
@@ -28,10 +29,10 @@ class PetsController < ApplicationController
 
   # POST /pets
   # POST /pets.json
-  def create
-    
+  def create 
     @pet = Pet.new(pet_params)
     @pet.user = @user
+    
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }
@@ -81,6 +82,19 @@ class PetsController < ApplicationController
 
     def set_all_pets
       @pets = Pet.all
+    end
+
+    def check_animal_type
+      if @pet.has_parent?
+        unless @pet.same_type(@pet.parent.animal_type)
+          @pet.parent_id = nil
+          @pet.save
+          puts "********"
+          puts "not same type"
+          puts "********"
+        end
+      end
+      
     end
 
 end

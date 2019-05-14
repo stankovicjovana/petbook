@@ -25,4 +25,9 @@ class Pet < ApplicationRecord
   def has_children?
     childern.exists?
   end
+
+  def same_type(type)
+    animal_type == type
+  end
+
 end
