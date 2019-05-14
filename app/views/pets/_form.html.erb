@@ -33,6 +33,7 @@
 
   <div class="field">
     <%= form.label :chose_parent %>
+    <%= form.select :parent_type, @pets.map{ |pet| [pet.animal_type]} %>
     <%= form.select :parent_id, @pets.map{ |pet| [pet.name, pet.id]}, include_blank: true %>
   </div>
 

@@ -32,7 +32,7 @@ class PetsController < ApplicationController
   def create 
     @pet = Pet.new(pet_params)
     @pet.user = @user
-    #check_animal_type
+    
     respond_to do |format|
       if @pet.save
         format.html { redirect_to @pet, notice: 'Pet was successfully created.' }

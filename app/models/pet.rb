@@ -30,6 +30,4 @@ class Pet < ApplicationRecord
     animal_type == type
   end
 
- 
-
 end
