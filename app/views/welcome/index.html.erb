@@ -1,12 +1,19 @@
 <p class="notice"> <%= notice %></p>
 <div class="welcome_page">
 	<div class="row">
-		<div class="col-sm-3">
-			<h1>Welcome to PetBook</h1>
-			<p>Here you can post about your nonhuman family members and share with our communitiy. </p>
-			<%= image_tag("petbook_cover.jpeg", :alt => "petbook_cover feed") %>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-8 text-center">
+			<div class="welcome">
+				<h1>Welcome to PetBook</h1>
+			</div>
+			<div>
+				<h6>Here you can post about your nonhuman family members and share with our communitiy. </h6>
+			</div>
+			<div>
+				<%= image_tag("petbook_cover.jpeg", :alt => "petbook_cover feed", class: "img-fluid", size: "500x500") %>
+			</div>
 		</div>
-			
+		<div class="col-sm-2"></div>
 	</div>
 	
 	
