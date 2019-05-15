@@ -14,6 +14,8 @@ class UsersController < ApplicationController
   def show
     @pets = @user.pets
     @current_user = User.find(session[:user_id])
+
+    @is_current_user = @user == @current_user
   end
 
   # GET /users/new
@@ -83,4 +85,5 @@ class UsersController < ApplicationController
       params.require(:user).permit(:email, :password, :password_confirmation, :name, :profile_image)
     end
 
+   
 end

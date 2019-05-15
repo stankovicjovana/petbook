@@ -1,77 +1,104 @@
-<p id="notice"><%= notice %></p>
 <div class="user_profile">
-	<h1>My Profile</h1>
-	<p>
-	  <strong>Name:</strong>
-	  <%= @user.name %>
-	</p>
-	<div style="width:200px; height:auto">
-		<%= image_tag(@user.profile_image, style:"width:100%") if @user.profile_image.attached? %>
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-8 text-left">
+			<p id="notice"><%= notice %></p>
+			<% if @is_current_user %>
+				<h1>My Profile</h1>
+				<% else %>
+				<h1><%= @user.name %>'s profile</h1>
+			<% end %>
+			<div class="row">
+				<div class="col-sm-4">
+					<%= image_tag(@user.profile_image, style:"width:100%",class: "img-fluid") if @user.profile_image.attached? %>
+				</div>
+				<div class="col-sm-4">
+					<p><strong>Name: </strong><%= @user.name %></p>
+					<% if @is_current_user%>
+						<p><strong>Email: </strong><%= @user.email %></p>
+					<% end %>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-sm-1"></div>
 	</div>
 
-	<% unless @user.has_no_pets %>
-		<div class="pets_list">
-			<table>
-			  <thead>
-			    <tr>
-			      <th>Name</th>
-			      <th>Description</th>
-			      <th>Type</th>
-			      <th>Breed</th>
-			      <th colspan="3"></th>
-			    </tr>
-			  </thead>
+	<div class="row">
+		<div class="col-sm-3">
+			<% unless @user.has_no_pets %>
+				<div class="pets_list">
+					<table>
+					  <thead>
+					  	<tr><h5>Pets</h5></tr>
+					    <tr>
+					      <th>Name</th>
+					      <th>Type</th>
+					      <th>Breed</th>
+					      <th colspan="3"></th>
+					    </tr>
+					  </thead>
 
-			  <tbody>
-			    <% @pets.each do |pet| %>
-			      <tr>
-			        <td><%= pet.name %></td>
-			        <td><%= pet.description %></td>
-			        <td><%= pet.animal_type %></td>
-			        <td><%= pet.breed %></td>
-			        <td><%= link_to 'Show', pet %></td>
+					  <tbody>
+					    <% @pets.each do |pet| %>
+					      <tr>
+					        <td><%= pet.name %></td>
+					        <td><%= pet.animal_type %></td>
+					        <td><%= pet.breed %></td>
+					        <td><%= link_to 'Show', pet %></td>
 
-			        <% if pet.owned_by(@current_user) %>
-				        <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
-				        <td><%= link_to 'Delete', pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-			        <% end %>
-			      </tr>
-			    <% end %>
-			  </tbody>
-			</table>
-		</div>
-	<% end %>
-
-	<% if @user.is_current_user(session[:user_id]) %>
-		<p>
-		  <strong>Email:</strong>
-		  <%= @user.email %>
-		</p>
-		<%= link_to 'Add pet', new_pet_path %> |
-		<%= link_to 'Edit', edit_user_path(@user) %> |
-		<%= link_to 'Delete profile', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
-		<div>
-			<strong><%= link_to	'Add new post', new_post_path %></strong>
-		</div>
-	<% end %>
-	<%= link_to 'Back', users_path %>
-	
-	
-
-	<% if @user.posts %>
-		<p> Posts </p>
-		<% @user.posts.each do |post| %>
-			<div>	
-				<strong><%= post.user.name %> :</strong>
-				<%= post.body %>
-				<div style="width:200px; height:auto">
-					<%= image_tag(post.users_photo, style:"width:100%") if post.users_photo.attached? %>
+					        <% if pet.owned_by(@current_user) %>
+						        <td><%= link_to 'Edit', edit_pet_path(pet) %></td>
+						        <td><%= link_to 'Delete', pet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+					        <% end %>
+					      </tr>
+					    <% end %>
+					  </tbody>
+					</table>
 				</div>
-				<%= link_to	'Edit post', edit_post_path(post) %> |
-				<%= link_to 'Delete post', post, method: :delete %>
-			</div>	
-		<% end %>
-	<% end %>
+			<% end %>
+			<% if @is_current_user %>
+				<%= link_to 'Add pet', new_pet_path %>
+			<% end %>
+		</div>
+		<div class="col-sm-6 text-left">
+			<div>
+				<strong><%= link_to	'Add new post', new_post_path %></strong>
+			</div>
+			<div>
+				<% if @user.posts %>
+				<br>
+					<h4> Posts </h4>
+					<% @user.posts.each do |post| %>
+						<div class="card">
+							<div class="card-body">
+								<strong><%= post.user.name %> posted 
+							</div>	
+							<div class="card-title"></strong> <%= post.body %></div>
+							<div >
+								<%= image_tag(post.users_photo, style:"width:100%", class: "img-fluid card-img-top") if post.users_photo.attached? %>
+							</div>
+							<div class="card-text">
+								<%= link_to	'Edit post', edit_post_path(post) %>
+								<%= link_to 'Delete post', post, method: :delete %>
+							</div>
+							
+						</div>	
+						<br>
+					<% end %>
+				<% end %>
+			</div>
+
+		</div>
+		<div class="col-sm-2">
+			<% if @is_current_user %>
+				<%= link_to 'Edit', edit_user_path(@user) %> |
+				<%= link_to 'Delete profile', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+			<% end %>
+		</div>
+	</div>
 </div>
+	
+
 
 
