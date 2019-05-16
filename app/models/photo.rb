@@ -13,6 +13,16 @@ class Photo < ApplicationRecord
   		return pet_image.variant(resize: '200X200!').processed
   	end
 
+  	def belongs_to_user(pet, user)
+		unless pet.user_id == user.id
+			return false
+			puts "******************************"
+			puts "POST DOES NOT BELONG TO USER!"
+			puts "******************************"
+		end
+		true
+	end
+
 	private 
 	  	def correct_image_type
 			if pet_image.attached? && !pet_image.content_type.in?(%('pet_image/jpeg pet_image/jpg pet_image/png'))

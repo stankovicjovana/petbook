@@ -22,6 +22,12 @@ class PhotosController < ApplicationController
 
   # GET /photos/1/edit
   def edit
+    unless @photo.belongs_to_user(@pet, @user)
+      puts "***************************"
+      puts "cannot delete photo of other users pets"
+      puts "***************************"
+      redirect_to @pet, notice: "cannot edit photo of other users pets"
+    end
   end
 
   # POST /photos
@@ -43,25 +49,35 @@ class PhotosController < ApplicationController
   # PATCH/PUT /photos/1
   # PATCH/PUT /photos/1.json
   def update
-    respond_to do |format|
+    if @photo.belongs_to_user(@pet, @user)
       if @photo.update(photo_params)
-        format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @photo }
+        redirect_to @photo, notice: 'Photo was successfully updated.' and return
       else
-        format.html { render :edit }
-        format.json { render json: @photo.errors, status: :unprocessable_entity }
+        render :edit and return
       end
+    else
+      puts "***************************"
+      puts "cannot update photo of other users pets"
+      puts "***************************"
+      redirect_to @pet, notice: "cannot update photo of other users pets"
     end
   end
 
   # DELETE /photos/1
   # DELETE /photos/1.json
   def destroy
-    @photo.pet_image.purge
-    @photo.destroy
-    respond_to do |format|
-      format.html { redirect_to @pet, notice: 'Photo was successfully destroyed.' }
-      format.json { head :no_content }
+    if @photo.belongs_to_user(@pet, @user)
+      @photo.pet_image.purge
+      @photo.destroy
+      respond_to do |format|
+        format.html { redirect_to @pet, notice: 'Photo was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      puts "***************************"
+      puts "cannot delete photo of other users pets"
+      puts "***************************"
+      redirect_to @pet, notice: "cannot delete photo of other users pets"
     end
   end
 
