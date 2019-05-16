@@ -42,24 +42,31 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @user, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.does_belongs_to(@user)
+        if @post.update(post_params)
+          redirect_to @user, notice: 'Post was successfully updated.' and return 
+        else
+          render :edit and return 
+        end
+    else 
+        puts "CANNOT UPDATE OTHER USER POSTS"
+        redirect_to @user, notice: "Can not update post of another user."
     end
   end
+  
 
   # DELETE /posts/1
   # DELETE /posts/1.json
   def destroy
-    @post.destroy
-    respond_to do |format|
-      format.html { redirect_to @user, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
+    if @post.does_belongs_to(@user)
+      @post.destroy
+      respond_to do |format|
+        format.html { redirect_to @user, notice: 'Post was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      puts "CANNOT DESTROY OTHER USER POSTS"
+      redirect_to @user, notice: "Can not delete post of another user."
     end
   end
 
