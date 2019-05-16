@@ -21,6 +21,10 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
+    unless @post.does_belongs_to(@user)
+      puts "CANNOT EDIT OTHER USER POSTS"
+      redirect_to @user, notice: "Can not edit post of another user."
+    end
   end
 
   # POST /posts
