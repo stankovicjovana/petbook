@@ -62,11 +62,13 @@
 			<% end %>
 		</div>
 		<div class="col-sm-6 text-left">
+			<% if @is_current_user %>
+				<div>
+					<strong><%= link_to	'Add new post', new_post_path %></strong>
+				</div>
+			<% end %>
 			<div>
-				<strong><%= link_to	'Add new post', new_post_path %></strong>
-			</div>
-			<div>
-				<% if @user.posts %>
+				<% unless @user.posts.empty? %>
 				<br>
 					<h4> Posts </h4>
 					<% @user.posts.each do |post| %>
