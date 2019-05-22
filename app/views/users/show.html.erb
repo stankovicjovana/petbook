@@ -81,8 +81,10 @@
 								<%= image_tag(post.users_photo, style:"width:100%", class: "img-fluid card-img-top") if post.users_photo.attached? %>
 							</div>
 							<div class="card-text">
-								<%= link_to	'Edit post', edit_post_path(post) %>
-								<%= link_to 'Delete post', post, method: :delete %>
+								<% if @is_current_user %>
+									<%= link_to	'Edit post', edit_post_path(post) %>
+									<%= link_to 'Delete post', post, method: :delete %>
+									<% end %>
 							</div>
 							
 						</div>	
