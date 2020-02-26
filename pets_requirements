@@ -1,0 +1,29 @@
+Make a website about pets
+User can make a profile on the site with username and password, and pet info(name, type, breed, age, description).
+User can add pet photos.
+user can see other users profiles.
+User must be logged in to do anything on the website.
+
+1. We have a home page.
+	- make a rails pets app.
+	- set root to home page.
+	- add nav bar to home page.
+	- add photo to home page.
+	- make basic styling for home page with nav bar and photo.
+2. We have an user with: email, password.
+	- generate user with email and password.
+	- make page with all users
+	- make show user page
+3. We have login, logout and sigh up pages(session controller) 
+	- make log in page
+	- make sign up page
+	- make log out
+	- add link to current user profile page from home page
+	- if user is not logged in redirect to log in page
+4. We have a pet with: name, type, breed, age, descritpion, photo.
+	- create pet
+	- add association user and pet
+5. User can add pet photos.
+6. user can see other users profiles.
+7. User must be logged in to do anything on the website.
+8. Make news feed page
